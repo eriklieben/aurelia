@@ -16,7 +16,7 @@ Aurelia applications are built out of components, from top to bottom. At startup
 
 ## Creating and Using Components
 
-Components in Aurelia follow the Model-View-ViewModel design pattern \(a descendant of MVC and MVP\) and are represented in HTML as _custom elements_. Each component has a JavaScript class, which serves as the _view-model_, providing the state and behavior for the component. Each component has an HTML template or _view_, which provides the rendering instructions for the component. Optionally, components can have a separate _model_ to provide unique business logic or a separate CSS file to provide styles.
+Components in Aurelia follow the Model-View-ViewModel design pattern \(a descendant of MVC and MVP <!-- Not every reader might know what these abbreviations are, maybe a link to Wikipedia helps? -->\) and are represented in HTML as _custom elements_. Each component has a JavaScript class <!-- Not sure if this is clear/true, if this matters in this stage, but HMTL-only component only have a view from the readers perspective (the vm might be there but its hidden to them). Might be better to start with view -->, which serves as the _view-model_, providing the state and behavior for the component. Each component has an HTML template or _view_, which provides the rendering instructions for the component. Optionally, components can have a separate _model_ to provide unique business logic or a separate CSS file to provide styles.
 
 ### The Basics
 
@@ -47,10 +47,17 @@ export class SayHello {
 {% hint style="warning" %}
 **Naming Components**
 
+<!-- Not sure if we need to mention sayHello will become say-hello -->
+
 The component name, derived from the file name, **must** contain a hyphen when working with Shadow DOM \(see [Styling Components](../app-basics/styling-components.md)\). This is part of the W3C Web Components standard and is designed to serve as a namespacing mechanism for custom HTML elements. A typical best practice is to choose a two to three character prefix to use consistently across your app or company. For example, all components provided by Aurelia have the prefix `au-`.
 {% endhint %}
 
-The `say-hello` custom element we've created isn't very interesting yet, so lets spice it up by allowing the user to providing a "to" property so that we can personalize the message. To create "bindable" properties for your HTML element, you declare them using the `@bindable` decorator as shown in the next example.
+The `say-hello` custom element <!-- component might be more clear to the reader => stick with one, either component or custom element througout the text --> we've created isn't very interesting yet, so lets spice it up by allowing the user to providing a "to" property so that we can personalize the message. <!-- next sentence -->To create "bindable" properties for your HTML element, you declare them using the `@bindable` decorator as shown in the next example.
+
+<!--option (without you): To create "bindable" properties for your HTML element, declare them using the @bindable decorator, as shown in the next example. -->
+
+<!--option (added need): To create "bindable" properties for your HTML element, you need to declare them using the @bindable decorator, as shown in the next example. -->
+
 
 {% tabs %}
 {% tab title="say-hello.ts" %}
@@ -76,7 +83,7 @@ export class SayHello {
 {% endtab %}
 {% endtabs %}
 
-By declaring a _bindable_, not only can your template access the property via string interpolation, but those who use the custom element in HTML can set that property directly through an HTML attribute or even bind the `to` attribute to their own model.
+By declaring a <!-- property as --> _bindable_, not only can your template access the property via string interpolation <!-- the reader might not know yet what string interpolation is -->, but those who use the custom element in HTML can set that property directly through an HTML attribute or even bind the `to` attribute to their own model.
 
 {% hint style="success" %}
 **CSS Conventions**
@@ -126,7 +133,15 @@ Interested to learn more about how you can display data with Aurelia's templatin
 
 ### Component Registration
 
-By default, components you create aren't global. What that means is that you can't use a component within another component, unless that component has been imported. Let's imagine that our "say-hello" component wants to use a "name-tag" component internally. To do that, we need to add an import in our view. Here's how that works:
+By default, components you create aren't global. What that means is that you can't use a component within another component, unless that component has been imported. Let's imagine that our "say-hello" component wants to use a "name-tag" component internally.
+<!--
+
+'What that means is that' is a bit hard to understand, you need to think and reference them in your head.
+
+Not sure if the text below is any better/ correct English:
+
+By default, the components you create aren't global; they are local. A local component cannot be used within another component before you import it into that component. Let's imagine that our "say-hello" component wants to use a "name-tag" component in its view.
+ --> To do that, we need to add an import in our view. Here's how that works:
 
 {% tabs %}
 {% tab title="say-hello.html" %}
@@ -159,6 +174,8 @@ export class SayHello {
 ```
 {% endtab %}
 {% endtabs %}
+
+<!-- (erik) todo: read further -->
 
 In practice, most people want to side-step this feature and make most of their general-purpose components global, so they can remove the majority of their imports. To make a component global, simply register it with the application's root dependency injection container at startup:
 
